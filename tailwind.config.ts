@@ -53,6 +53,15 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				terminal: {
+					bg: 'hsl(var(--terminal-bg))',
+					green: 'hsl(var(--terminal-green))',
+					'green-bright': 'hsl(var(--terminal-green-bright))',
+					'green-dim': 'hsl(var(--terminal-green-dim))',
+					amber: 'hsl(var(--terminal-amber))',
+					red: 'hsl(var(--terminal-red))',
+					blue: 'hsl(var(--terminal-blue))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -65,15 +74,18 @@ export default {
 				}
 			},
 			backgroundImage: {
-				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-subtle': 'var(--gradient-subtle)'
+				'gradient-terminal': 'var(--gradient-terminal)',
+				'gradient-scanline': 'var(--gradient-scanline)'
 			},
 			boxShadow: {
-				'soft': 'var(--shadow-soft)',
-				'card': 'var(--shadow-card)'
+				'terminal': 'var(--shadow-terminal)',
+				'glow': 'var(--shadow-glow)'
+			},
+			fontFamily: {
+				'mono': ['Fira Code', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace']
 			},
 			transitionTimingFunction: {
-				'smooth': 'var(--transition-smooth)'
+				'terminal': 'var(--transition-terminal)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

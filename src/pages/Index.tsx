@@ -1,160 +1,180 @@
-import { ResumeHeader } from "@/components/ResumeHeader";
-import { ResumeSection } from "@/components/ResumeSection";
-import { ExperienceItem } from "@/components/ExperienceItem";
-import { EducationItem } from "@/components/EducationItem";
-import { SkillsSection } from "@/components/SkillsSection";
+import { useState } from "react";
+import { ConsoleLoader } from "@/components/ConsoleLoader";
+import { TerminalHeader } from "@/components/TerminalHeader";
+import { TerminalSection } from "@/components/TerminalSection";
+import { ProjectItem } from "@/components/ProjectItem";
+import { TerminalEducation } from "@/components/TerminalEducation";
+import { TerminalSkills } from "@/components/TerminalSkills";
+import { TypingAnimation } from "@/components/TerminalEffects";
 
 const Index = () => {
-  // Sample resume data - customize this with your own information
-  const resumeData = {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Portfolio data - customize with your information
+  const portfolioData = {
     personalInfo: {
-      name: "Your Name",
-      title: "Software Developer",
+      name: "John Doe",
+      title: "Full Stack Developer & Linux Enthusiast",
       contact: {
-        email: "your.email@example.com",
+        email: "john.doe@example.com", 
         phone: "+1 (555) 123-4567",
-        location: "Your City, State",
-        website: "https://yourwebsite.com",
-        linkedin: "https://linkedin.com/in/yourprofile",
-        github: "https://github.com/yourusername"
+        location: "San Francisco, CA",
+        website: "https://johndoe.dev",
+        linkedin: "https://linkedin.com/in/johndoe",
+        github: "https://github.com/johndoe"
       }
     },
-    summary: "Passionate software developer with 3+ years of experience building modern web applications. Skilled in React, Node.js, and cloud technologies. Strong problem-solving abilities and commitment to writing clean, maintainable code.",
-    experience: [
+    about: "Passionate developer with 5+ years of experience crafting efficient solutions using modern technologies. Specializing in React, Node.js, and cloud architecture. Love working in terminal environments and contributing to open-source projects.",
+    projects: [
       {
-        company: "Tech Company Inc.",
-        position: "Senior Software Developer",
+        name: "TechCorp Solutions",
+        role: "Senior Full Stack Developer",
         duration: "2022 - Present",
         location: "Remote",
+        technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker", "AWS"],
         description: [
-          "Developed and maintained React-based web applications serving 10,000+ users",
-          "Implemented CI/CD pipelines reducing deployment time by 50%",
-          "Mentored junior developers and conducted code reviews",
-          "Collaborated with cross-functional teams to deliver features on time"
+          "Architected scalable microservices serving 50,000+ daily users",
+          "Implemented CI/CD pipelines reducing deployment time by 60%",
+          "Led team of 4 developers using agile methodologies",
+          "Built real-time chat system using WebSocket and Redis"
         ]
       },
       {
-        company: "Startup Solutions",
-        position: "Frontend Developer",
-        duration: "2021 - 2022",
+        name: "StartupXYZ",
+        role: "Frontend Developer",
+        duration: "2020 - 2022",
         location: "New York, NY",
+        technologies: ["React", "Next.js", "TailwindCSS", "GraphQL", "Jest"],
         description: [
-          "Built responsive web applications using React, TypeScript, and TailwindCSS",
-          "Optimized application performance resulting in 30% faster load times",
-          "Worked closely with UX/UI designers to implement pixel-perfect designs",
-          "Participated in agile development processes and sprint planning"
+          "Developed responsive web applications with 99.9% uptime",
+          "Optimized bundle size reducing load times by 40%",
+          "Implemented automated testing increasing code coverage to 85%",
+          "Collaborated with design team for pixel-perfect implementations"
         ]
       },
       {
-        company: "Digital Agency",
-        position: "Junior Developer",
-        duration: "2020 - 2021",
-        location: "Los Angeles, CA",
+        name: "FreelanceHub",
+        role: "Web Developer",
+        duration: "2019 - 2020",
+        location: "Los Angeles, CA", 
+        technologies: ["JavaScript", "PHP", "MySQL", "WordPress", "Git"],
         description: [
-          "Developed client websites using HTML, CSS, JavaScript, and WordPress",
-          "Assisted in debugging and maintaining existing codebases",
-          "Learned modern development practices and version control with Git",
-          "Supported senior developers in project delivery and testing"
+          "Built custom WordPress themes and plugins for clients",
+          "Managed hosting and deployment for 20+ client websites",
+          "Implemented SEO best practices improving search rankings",
+          "Provided technical support and maintenance services"
         ]
       }
     ],
     education: [
       {
-        institution: "University of Technology",
+        institution: "University of California, Berkeley",
         degree: "Bachelor of Science",
         field: "Computer Science",
-        duration: "2016 - 2020",
-        gpa: "3.7/4.0",
+        duration: "2015 - 2019",
+        gpa: "3.8/4.0",
         achievements: [
-          "Dean's List for 3 consecutive semesters",
-          "President of Computer Science Club",
-          "Winner of Annual Hackathon 2019"
+          "Magna Cum Laude graduate",
+          "ACM Programming Contest finalist",
+          "Open source contributor - 100+ GitHub contributions",
+          "Teaching Assistant for Data Structures course"
         ]
       }
     ],
     skills: [
       {
-        category: "Frontend Technologies",
+        category: "Frontend Development",
         skills: [
-          { name: "React/Next.js", level: "Advanced" as const },
-          { name: "TypeScript", level: "Advanced" as const },
-          { name: "TailwindCSS", level: "Expert" as const },
-          { name: "JavaScript", level: "Expert" as const }
+          { name: "React/Next.js", level: 9 },
+          { name: "TypeScript", level: 8 },
+          { name: "TailwindCSS", level: 9 },
+          { name: "JavaScript", level: 10 },
+          { name: "HTML/CSS", level: 10 }
         ]
       },
       {
-        category: "Backend & Database",
+        category: "Backend Development", 
         skills: [
-          { name: "Node.js", level: "Advanced" as const },
-          { name: "PostgreSQL", level: "Intermediate" as const },
-          { name: "MongoDB", level: "Intermediate" as const },
-          { name: "REST APIs", level: "Advanced" as const }
+          { name: "Node.js", level: 8 },
+          { name: "Python", level: 7 },
+          { name: "PostgreSQL", level: 7 },
+          { name: "MongoDB", level: 6 },
+          { name: "REST APIs", level: 9 }
         ]
       },
       {
-        category: "Tools & Platforms",
+        category: "DevOps & Tools",
         skills: [
-          { name: "Git/GitHub", level: "Expert" as const },
-          { name: "Docker", level: "Intermediate" as const },
-          { name: "AWS", level: "Intermediate" as const },
-          { name: "Figma", level: "Intermediate" as const }
+          { name: "Git/GitHub", level: 10 },
+          { name: "Docker", level: 7 },
+          { name: "AWS/Cloud", level: 6 },
+          { name: "Linux/Bash", level: 8 },
+          { name: "CI/CD", level: 7 }
         ]
       },
       {
         category: "Soft Skills",
         skills: [
-          { name: "Problem Solving", level: "Expert" as const },
-          { name: "Team Collaboration", level: "Advanced" as const },
-          { name: "Communication", level: "Advanced" as const },
-          { name: "Project Management", level: "Intermediate" as const }
+          { name: "Problem Solving", level: 9 },
+          { name: "Team Leadership", level: 8 },
+          { name: "Communication", level: 8 },
+          { name: "Project Management", level: 7 },
+          { name: "Mentoring", level: 7 }
         ]
       }
     ]
   };
 
+  if (isLoading) {
+    return <ConsoleLoader onComplete={() => setIsLoading(false)} />;
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-subtle">
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Header */}
-        <ResumeHeader 
-          name={resumeData.personalInfo.name}
-          title={resumeData.personalInfo.title}
-          contact={resumeData.personalInfo.contact}
+    <div className="min-h-screen bg-background terminal-scanlines">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Terminal Header */}
+        <TerminalHeader 
+          name={portfolioData.personalInfo.name}
+          title={portfolioData.personalInfo.title}
+          contact={portfolioData.personalInfo.contact}
         />
 
-        <div className="mt-8 space-y-8">
-          {/* Professional Summary */}
-          <ResumeSection title="Professional Summary">
-            <div className="bg-card border border-border rounded-lg p-6 shadow-card">
-              <p className="text-muted-foreground leading-relaxed">
-                {resumeData.summary}
-              </p>
+        <div className="space-y-8">
+          {/* About Section */}
+          <TerminalSection title="About Me" command="cat /home/user/about.txt">
+            <div className="bg-muted border border-terminal-green-dim rounded p-4 font-mono">
+              <TypingAnimation 
+                text={portfolioData.about}
+                speed={20}
+                className="text-terminal-green leading-relaxed"
+              />
             </div>
-          </ResumeSection>
+          </TerminalSection>
 
-          {/* Experience */}
-          <ResumeSection title="Professional Experience">
-            {resumeData.experience.map((exp, index) => (
-              <ExperienceItem
+          {/* Experience/Projects */}
+          <TerminalSection title="Work Experience" command="ls -la /var/log/experience/">
+            {portfolioData.projects.map((project, index) => (
+              <ProjectItem
                 key={index}
-                company={exp.company}
-                position={exp.position}
-                duration={exp.duration}
-                location={exp.location}
-                description={exp.description}
+                name={project.name}
+                role={project.role}
+                duration={project.duration}
+                location={project.location}
+                description={project.description}
+                technologies={project.technologies}
               />
             ))}
-          </ResumeSection>
+          </TerminalSection>
 
           {/* Skills */}
-          <ResumeSection title="Skills & Technologies">
-            <SkillsSection skillCategories={resumeData.skills} />
-          </ResumeSection>
+          <TerminalSection title="Skills & Technologies" command="sudo apt list --installed">
+            <TerminalSkills skillCategories={portfolioData.skills} />
+          </TerminalSection>
 
           {/* Education */}
-          <ResumeSection title="Education">
-            {resumeData.education.map((edu, index) => (
-              <EducationItem
+          <TerminalSection title="Education" command="cat /etc/education.conf">
+            {portfolioData.education.map((edu, index) => (
+              <TerminalEducation
                 key={index}
                 institution={edu.institution}
                 degree={edu.degree}
@@ -164,7 +184,18 @@ const Index = () => {
                 achievements={edu.achievements}
               />
             ))}
-          </ResumeSection>
+          </TerminalSection>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-12 text-center font-mono">
+          <div className="text-terminal-green-dim text-sm">
+            <TypingAnimation 
+              text="portfolio@terminal:~$ Thanks for visiting! Type 'contact' to get in touch 💚"
+              speed={30}
+              className="terminal-glow"
+            />
+          </div>
         </div>
       </div>
     </div>
