@@ -42,33 +42,33 @@ export const TerminalHeader = ({ name, title, contact }: TerminalHeaderProps) =>
 
         <TerminalPrompt command="cat /usr/local/contact.txt" />
         <div className="pl-4 space-y-1 text-terminal-green">
-          <div className="flex items-center gap-2">
-            <Mail className="w-4 h-4" />
-            <a href={`mailto:${contact.email}`} className="hover:text-terminal-green-bright transition-colors">
+          <div className="flex items-center gap-2 group hover:bg-terminal-bg/30 p-1 rounded transition-all duration-300">
+            <Mail className="w-4 h-4 group-hover:text-terminal-green-bright group-hover:scale-110 transition-all duration-300" />
+            <a href={`mailto:${contact.email}`} className="hover:text-terminal-green-bright transition-colors group-hover:terminal-glow">
               {contact.email}
             </a>
           </div>
           
-          <div className="flex items-center gap-2">
-            <Phone className="w-4 h-4" />
-            <a href={`tel:${contact.phone}`} className="hover:text-terminal-green-bright transition-colors">
+          <div className="flex items-center gap-2 group hover:bg-terminal-bg/30 p-1 rounded transition-all duration-300">
+            <Phone className="w-4 h-4 group-hover:text-terminal-green-bright group-hover:scale-110 transition-all duration-300" />
+            <a href={`tel:${contact.phone}`} className="hover:text-terminal-green-bright transition-colors group-hover:terminal-glow">
               {contact.phone}
             </a>
           </div>
           
-          <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4" />
-            <span>{contact.location}</span>
+          <div className="flex items-center gap-2 group hover:bg-terminal-bg/30 p-1 rounded transition-all duration-300">
+            <MapPin className="w-4 h-4 group-hover:text-terminal-green-bright group-hover:scale-110 transition-all duration-300" />
+            <span className="group-hover:text-terminal-green-bright transition-colors">{contact.location}</span>
           </div>
           
           {contact.website && (
-            <div className="flex items-center gap-2">
-              <Globe className="w-4 h-4" />
+            <div className="flex items-center gap-2 group hover:bg-terminal-bg/30 p-1 rounded transition-all duration-300">
+              <Globe className="w-4 h-4 group-hover:text-terminal-green-bright group-hover:scale-110 transition-all duration-300" />
               <a 
                 href={contact.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-terminal-green-bright transition-colors"
+                className="hover:text-terminal-green-bright transition-colors group-hover:terminal-glow"
               >
                 {contact.website.replace('https://', '')}
               </a>
@@ -76,13 +76,13 @@ export const TerminalHeader = ({ name, title, contact }: TerminalHeaderProps) =>
           )}
           
           {contact.linkedin && (
-            <div className="flex items-center gap-2">
-              <Linkedin className="w-4 h-4" />
+            <div className="flex items-center gap-2 group hover:bg-terminal-bg/30 p-1 rounded transition-all duration-300">
+              <Linkedin className="w-4 h-4 group-hover:text-terminal-green-bright group-hover:scale-110 transition-all duration-300" />
               <a 
                 href={contact.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-terminal-green-bright transition-colors"
+                className="hover:text-terminal-green-bright transition-colors group-hover:terminal-glow"
               >
                 LinkedIn Profile
               </a>
@@ -90,13 +90,13 @@ export const TerminalHeader = ({ name, title, contact }: TerminalHeaderProps) =>
           )}
           
           {contact.github && (
-            <div className="flex items-center gap-2">
-              <Github className="w-4 h-4" />
+            <div className="flex items-center gap-2 group hover:bg-terminal-bg/30 p-1 rounded transition-all duration-300">
+              <Github className="w-4 h-4 group-hover:text-terminal-green-bright group-hover:scale-110 transition-all duration-300" />
               <a 
                 href={contact.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-terminal-green-bright transition-colors"
+                className="hover:text-terminal-green-bright transition-colors group-hover:terminal-glow"
               >
                 GitHub Profile
               </a>

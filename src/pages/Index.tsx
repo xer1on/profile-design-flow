@@ -6,6 +6,7 @@ import { ProjectItem } from "@/components/ProjectItem";
 import { TerminalEducation } from "@/components/TerminalEducation";
 import { TerminalSkills } from "@/components/TerminalSkills";
 import { TypingAnimation } from "@/components/TerminalEffects";
+import { InteractiveTerminal } from "@/components/InteractiveTerminal";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -169,6 +170,16 @@ const Index = () => {
           {/* Skills */}
           <TerminalSection title="Skills & Technologies" command="sudo apt list --installed">
             <TerminalSkills skillCategories={portfolioData.skills} />
+          </TerminalSection>
+
+          {/* Interactive Terminal */}
+          <TerminalSection title="Interactive Terminal" command="bash --login">
+            <div className="mb-4">
+              <p className="text-terminal-green font-mono text-sm mb-2">
+                Try out some commands! Type 'help' to see available options.
+              </p>
+            </div>
+            <InteractiveTerminal />
           </TerminalSection>
 
           {/* Education */}
