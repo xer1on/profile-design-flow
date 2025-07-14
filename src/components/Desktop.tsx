@@ -249,7 +249,13 @@ export const Desktop = () => {
       <div className="h-12 bg-terminal-bg border-t border-terminal-green flex items-center justify-between px-4">
         {/* Start Menu / Logo */}
         <div className="flex items-center gap-4">
-          <div className="text-terminal-green font-mono font-bold">◉ Portfolio OS</div>
+          <button
+            onClick={() => openWindow('terminal', 'Terminal', <InteractiveTerminal />)}
+            className="flex items-center gap-2 px-3 py-1 rounded border border-terminal-green text-terminal-green hover:bg-terminal-green/10 transition-colors"
+          >
+            <Terminal className="w-4 h-4" />
+            <span className="font-mono text-sm">Terminal</span>
+          </button>
           
           {/* Open Windows */}
           <div className="flex gap-2">
