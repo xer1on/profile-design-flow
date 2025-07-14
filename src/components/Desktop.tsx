@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Terminal, User, Folder, Settings, Power } from "lucide-react";
 import { Window } from "./Window";
 import { InteractiveTerminal } from "./InteractiveTerminal";
@@ -18,11 +18,25 @@ interface OpenWindow {
 export const Desktop = () => {
   const [openWindows, setOpenWindows] = useState<OpenWindow[]>([]);
   const [time, setTime] = useState(new Date().toLocaleTimeString());
+  const [isBooted, setIsBooted] = useState(false);
 
-  // Update time every second
-  setInterval(() => {
-    setTime(new Date().toLocaleTimeString());
-  }, 1000);
+  // Update time every second with proper cleanup
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Boot sequence
+  useEffect(() => {
+    const bootTimer = setTimeout(() => {
+      setIsBooted(true);
+    }, 2000);
+
+    return () => clearTimeout(bootTimer);
+  }, []);
 
   const portfolioData = {
     name: "John Doe",
@@ -116,6 +130,23 @@ export const Desktop = () => {
     x: 50 + (index * 30),
     y: 50 + (index * 30)
   });
+
+  // Show boot screen initially
+  if (!isBooted) {
+    return (
+      <div className="h-screen bg-terminal-bg flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="text-terminal-green font-mono text-2xl mb-8">Portfolio OS v2.0</div>
+          <div className="flex justify-center">
+            <div className="animate-spin border-2 border-terminal-green border-t-transparent rounded-full w-8 h-8"></div>
+          </div>
+          <div className="text-terminal-green-dim font-mono text-sm">
+            Initializing portfolio system<span className="loading-dots"></span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen bg-gradient-to-br from-black via-gray-900 to-black flex flex-col relative overflow-hidden">
@@ -278,10 +309,32 @@ export const Desktop = () => {
         {/* System Tray */}
         <div className="flex items-center gap-4">
           <div className="text-terminal-green font-mono text-sm">{time}</div>
-          <button className="text-terminal-green hover:text-terminal-green-bright">
+          <button 
+            onClick={() => openWindow('settings', 'System Settings', (
+              <div className="p-4 text-terminal-green font-mono">
+                <h3 className="text-lg mb-4">System Settings</h3>
+                <div className="space-y-2">
+                  <div>Display: 1920x1080</div>
+                  <div>Memory: 16GB RAM</div>
+                  <div>Storage: 512GB SSD</div>
+                  <div>Network: Connected</div>
+                  <div>Theme: Matrix Green</div>
+                </div>
+              </div>
+            ))}
+            className="text-terminal-green hover:text-terminal-green-bright transition-colors"
+          >
             <Settings className="w-4 h-4" />
           </button>
-          <button className="text-terminal-red hover:text-terminal-red/80">
+          <button 
+            onClick={() => {
+              if (confirm("Are you sure you want to shutdown the system?")) {
+                setIsBooted(false);
+                setTimeout(() => setIsBooted(true), 3000);
+              }
+            }}
+            className="text-terminal-red hover:text-terminal-red/80 transition-colors"
+          >
             <Power className="w-4 h-4" />
           </button>
         </div>
