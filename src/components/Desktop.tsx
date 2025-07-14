@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
-import { Terminal, User, Folder, Settings, Power } from "lucide-react";
 import { Window } from "./Window";
-import { InteractiveTerminal } from "./InteractiveTerminal";
-import { TerminalHeader } from "./TerminalHeader";
-import { TerminalSection } from "./TerminalSection";
-import { TerminalSkills } from "./TerminalSkills";
-import { TerminalEducation } from "./TerminalEducation";
-import { ProjectItem } from "./ProjectItem";
+import { BootScreen } from "./BootScreen";
+import { DesktopIcons } from "./DesktopIcons";
+import { Taskbar } from "./Taskbar";
 
 interface OpenWindow {
   id: string;
@@ -38,63 +34,6 @@ export const Desktop = () => {
     return () => clearTimeout(bootTimer);
   }, []);
 
-  const portfolioData = {
-    name: "John Doe",
-    title: "Full Stack Developer",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
-    github: "https://github.com/johndoe",
-    linkedin: "https://linkedin.com/in/johndoe",
-    website: "https://johndoe.dev",
-    summary: "Passionate full-stack developer with 5+ years of experience building scalable web applications using modern technologies.",
-    skills: [
-      { name: "JavaScript", level: 90 },
-      { name: "React", level: 85 },
-      { name: "Node.js", level: 80 },
-      { name: "Python", level: 75 },
-      { name: "Docker", level: 70 },
-      { name: "AWS", level: 65 }
-    ],
-    experience: [
-      {
-        title: "Senior Full Stack Developer",
-        company: "TechCorp Inc.",
-        period: "2022 - Present",
-        description: "Lead development of microservices architecture serving 1M+ users. Built React dashboards and REST APIs."
-      },
-      {
-        title: "Full Stack Developer",
-        company: "StartupXYZ",
-        period: "2020 - 2022",
-        description: "Developed e-commerce platform from scratch. Implemented real-time features and payment integration."
-      }
-    ],
-    projects: [
-      {
-        name: "E-Commerce Platform",
-        description: "Full-stack e-commerce solution with React, Node.js, and PostgreSQL",
-        technologies: ["React", "Node.js", "PostgreSQL", "Docker"],
-        link: "https://github.com/johndoe/ecommerce",
-        status: "Production"
-      },
-      {
-        name: "Real-time Chat App",
-        description: "WebSocket-based chat application with user authentication",
-        technologies: ["React", "Socket.io", "Express", "MongoDB"],
-        link: "https://github.com/johndoe/chat-app",
-        status: "Complete"
-      }
-    ],
-    education: [
-      {
-        degree: "Bachelor of Science in Computer Science",
-        school: "University of Technology",
-        year: "2018",
-        gpa: "3.8/4.0"
-      }
-    ]
-  };
 
   const openWindow = (id: string, title: string, content: React.ReactNode) => {
     const existingWindow = openWindows.find(w => w.id === id);
@@ -133,19 +72,7 @@ export const Desktop = () => {
 
   // Show boot screen initially
   if (!isBooted) {
-    return (
-      <div className="h-screen bg-terminal-bg flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="text-terminal-green font-mono text-2xl mb-8">Portfolio OS v2.0</div>
-          <div className="flex justify-center">
-            <div className="animate-spin border-2 border-terminal-green border-t-transparent rounded-full w-8 h-8"></div>
-          </div>
-          <div className="text-terminal-green-dim font-mono text-sm">
-            Initializing portfolio system<span className="loading-dots"></span>
-          </div>
-        </div>
-      </div>
-    );
+    return <BootScreen />;
   }
 
   return (
@@ -156,109 +83,7 @@ export const Desktop = () => {
       </div>
 
       {/* Desktop Icons */}
-      <div className="flex-1 p-4">
-        <div className="grid grid-cols-1 gap-4 w-20">
-          <button
-            onClick={() => openWindow('terminal', 'Terminal', <InteractiveTerminal />)}
-            className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-terminal-green/10 text-terminal-green group"
-          >
-            <Terminal className="w-8 h-8 group-hover:scale-110 transition-transform" />
-            <span className="text-xs font-mono">Terminal</span>
-          </button>
-
-          <button
-            onClick={() => openWindow('portfolio', 'Portfolio', (
-              <div className="p-6 space-y-6 h-full overflow-auto">
-                <TerminalHeader 
-                  name={portfolioData.name}
-                  title={portfolioData.title}
-                  contact={{
-                    email: portfolioData.email,
-                    phone: portfolioData.phone,
-                    location: portfolioData.location,
-                    website: portfolioData.website,
-                    linkedin: portfolioData.linkedin,
-                    github: portfolioData.github
-                  }}
-                />
-                
-                <TerminalSection title="Experience">
-                  <div className="space-y-4">
-                    {portfolioData.experience.map((exp, index) => (
-                      <div key={index} className="border-l-2 border-terminal-green pl-4">
-                        <h3 className="text-terminal-green font-semibold">{exp.title}</h3>
-                        <p className="text-terminal-green-dim">{exp.company} • {exp.period}</p>
-                        <p className="text-terminal-green-dim text-sm mt-1">{exp.description}</p>
-                      </div>
-                    ))}
-                  </div>
-                </TerminalSection>
-
-                <TerminalSkills skillCategories={[
-                  {
-                    category: "Programming Languages",
-                    skills: portfolioData.skills.slice(0, 3)
-                  },
-                  {
-                    category: "Technologies & Tools", 
-                    skills: portfolioData.skills.slice(3)
-                  }
-                ]} />
-
-                <TerminalSection title="Projects">
-                  <div className="grid gap-4">
-                    {portfolioData.projects.map((project, index) => (
-                      <ProjectItem 
-                        key={index} 
-                        name={project.name}
-                        role={project.name}
-                        duration={project.status}
-                        description={[project.description]}
-                        technologies={project.technologies}
-                      />
-                    ))}
-                  </div>
-                </TerminalSection>
-
-                {portfolioData.education.map((edu, index) => (
-                  <TerminalEducation 
-                    key={index}
-                    institution={edu.school}
-                    degree={edu.degree}
-                    field="Computer Science"
-                    duration={edu.year}
-                    gpa={edu.gpa}
-                  />
-                ))}
-              </div>
-            ))}
-            className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-terminal-green/10 text-terminal-green group"
-          >
-            <User className="w-8 h-8 group-hover:scale-110 transition-transform" />
-            <span className="text-xs font-mono">Portfolio</span>
-          </button>
-
-          <button
-            onClick={() => openWindow('files', 'File Manager', (
-              <div className="p-4">
-                <div className="text-terminal-green font-mono">
-                  <div className="mb-4">📁 /home/user</div>
-                  <div className="space-y-2">
-                    <div className="hover:bg-terminal-green/10 p-2 rounded">📄 resume.pdf</div>
-                    <div className="hover:bg-terminal-green/10 p-2 rounded">📁 projects/</div>
-                    <div className="hover:bg-terminal-green/10 p-2 rounded">📁 documents/</div>
-                    <div className="hover:bg-terminal-green/10 p-2 rounded">📁 downloads/</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-            className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-terminal-green/10 text-terminal-green group"
-          >
-            <Folder className="w-8 h-8 group-hover:scale-110 transition-transform" />
-            <span className="text-xs font-mono">Files</span>
-          </button>
-        </div>
-      </div>
+      <DesktopIcons openWindow={openWindow} />
 
       {/* Windows */}
       {openWindows.map((window, index) => (
@@ -277,68 +102,14 @@ export const Desktop = () => {
       ))}
 
       {/* Taskbar */}
-      <div className="h-12 bg-terminal-bg border-t border-terminal-green flex items-center justify-between px-4">
-        {/* Start Menu / Logo */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => openWindow('terminal', 'Terminal', <InteractiveTerminal />)}
-            className="flex items-center gap-2 px-3 py-1 rounded border border-terminal-green text-terminal-green hover:bg-terminal-green/10 transition-colors"
-          >
-            <Terminal className="w-4 h-4" />
-            <span className="font-mono text-sm">Terminal</span>
-          </button>
-          
-          {/* Open Windows */}
-          <div className="flex gap-2">
-            {openWindows.map(window => (
-              <button
-                key={window.id}
-                onClick={() => window.isMinimized ? restoreWindow(window.id) : minimizeWindow(window.id)}
-                className={`px-3 py-1 rounded text-xs font-mono border ${
-                  window.isMinimized 
-                    ? 'border-terminal-green/50 text-terminal-green-dim'
-                    : 'border-terminal-green text-terminal-green bg-terminal-green/10'
-                }`}
-              >
-                {window.title}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* System Tray */}
-        <div className="flex items-center gap-4">
-          <div className="text-terminal-green font-mono text-sm">{time}</div>
-          <button 
-            onClick={() => openWindow('settings', 'System Settings', (
-              <div className="p-4 text-terminal-green font-mono">
-                <h3 className="text-lg mb-4">System Settings</h3>
-                <div className="space-y-2">
-                  <div>Display: 1920x1080</div>
-                  <div>Memory: 16GB RAM</div>
-                  <div>Storage: 512GB SSD</div>
-                  <div>Network: Connected</div>
-                  <div>Theme: Matrix Green</div>
-                </div>
-              </div>
-            ))}
-            className="text-terminal-green hover:text-terminal-green-bright transition-colors"
-          >
-            <Settings className="w-4 h-4" />
-          </button>
-          <button 
-            onClick={() => {
-              if (confirm("Are you sure you want to shutdown the system?")) {
-                setIsBooted(false);
-                setTimeout(() => setIsBooted(true), 3000);
-              }
-            }}
-            className="text-terminal-red hover:text-terminal-red/80 transition-colors"
-          >
-            <Power className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
+      <Taskbar
+        time={time}
+        openWindows={openWindows}
+        openWindow={openWindow}
+        restoreWindow={restoreWindow}
+        minimizeWindow={minimizeWindow}
+        setIsBooted={setIsBooted}
+      />
     </div>
   );
 };
